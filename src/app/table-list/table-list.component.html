@@ -12,8 +12,10 @@
           <div class="table-responsive">
             <table class="table">
               <thead class="text-primary">
+                <th></th>
                 <th>Title</th>
                 <th>About</th>
+                <th>Approval Status</th>
                 <th>Start At</th>
                 <th>End At</th>
                 <th>Subject</th>
@@ -27,7 +29,7 @@
                         <i class="fas fa-ellipsis-v"></i>
                       </button>
                       <div class="dropdown-menu" aria-labelledby="dropdownMenuButton{{campaign.id}}">
-                        <a class="dropdown-item" href="#" (click)="archiveCampaign(campaign)">Archive</a>
+                        <<a class="dropdown-item" href="#" (click)="archiveCampaign(campaign); $event.preventDefault()">Archive</a>
                         <a class="dropdown-item" href="#" (click)="approveCampaign(campaign)">Approve</a>
                         <a class="dropdown-item" href="#" (click)="goToCampaignAnalytics(campaign.id)">Analytics</a>
 
@@ -36,6 +38,7 @@
                   </td>
                   <td>{{ campaign.title }}</td>
                   <td>{{ campaign.about }}</td>
+                  <td>{{ campaign.state }}</td>
                   <td>{{ campaign.startAt }}</td>
                     <td>{{ campaign.endAt }}</td>
                   <td>{{ campaign.mail.subject }}</td>

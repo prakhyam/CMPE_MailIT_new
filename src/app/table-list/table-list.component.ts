@@ -65,7 +65,7 @@ export class TableListComponent implements OnInit {
   }
   archiveCampaign(campaign: any) {
     const archiveApiUrl = `https://40e2-2601-646-a100-cbf0-9cd8-4759-366f-faf1.ngrok-free.app/campaigns/archive/${campaign.id}`;
-    this.http.delete(archiveApiUrl).subscribe(
+    this.http.post(archiveApiUrl, null).subscribe(
       (response) => {
         console.log('Campaign archived:', response);
         // Handle successful archiving here (e.g., show a success message or refresh the list)

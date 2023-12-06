@@ -4,10 +4,6 @@
   <div class="row">
     <div class="col-md-12">
       <div class="card">
-        <div class="card-header">
-          <h4 class="card-title"> USERS</h4>
-          <button class="btn btn-primary" style="float: right;" [routerLink]="['/user-profile']">Add Users</button>
-        </div>
         <div class="card-body">
           <div class="table-responsive">
             <table class="table">
@@ -17,7 +13,6 @@
                 <th>Email </th>
                 <th>Role</th>
         
-                <th class="text-right">Actions</th>
               </thead>
               <tbody>
                 <tr *ngFor="let user of users">
@@ -25,9 +20,7 @@
                   <td>{{ user.lastName }}</td>
                   <td>{{ user.email }}</td>
                   <td>{{ mapUserRole(user.role) }}</td>
-                  <td class="text-right">
-                    <button class="btn btn-danger" (click)="deleteUser(user.id)">Delete</button>
-                </td>
+
                 </tr>
               </tbody>
             </table>

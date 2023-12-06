@@ -184,4 +184,8 @@ export class TableListComponent implements OnInit {
       }
     );
   }
+
+  isCampaignSupervisor(): boolean {
+    return localStorage.getItem('role') !== null && localStorage.getItem('role') == 'campaign_supervisor';
+  }
 }

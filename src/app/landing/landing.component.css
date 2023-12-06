@@ -19,11 +19,16 @@
     font-size: 1.5rem;
 }
 
+.navbar .navbar-nav {
+    display: flex; /* Use flexbox to layout children horizontally */
+}
+
 .navbar .navbar-nav .nav-link {
     color: #ffffff;
     margin-left: 1rem;
     padding: 0.5rem 1rem;
     text-decoration: none;
+   
     transition: background-color 0.3s ease-in-out;
 }
 

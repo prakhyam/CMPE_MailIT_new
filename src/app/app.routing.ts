@@ -6,13 +6,15 @@ import { LoginComponent } from './login/login.component';
 
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 import { SingupComponent } from './singup/singup.component';
+import { LandingComponent } from './landing/landing.component';
 
 const routes: Routes =[
   {
     path: '',
     redirectTo: 'table-liist',
     pathMatch: 'full',
-  }, {
+  }, 
+  {
     path: '',
     component: AdminLayoutComponent,
     children: [
@@ -33,6 +35,10 @@ const routes: Routes =[
     path: 'signup',
     component: SingupComponent
   
+  },
+  {
+    path: 'landing',
+    component: LandingComponent
   }
 
 ];

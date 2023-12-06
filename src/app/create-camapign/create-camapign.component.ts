@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Router,NavigationEnd } from '@angular/router';
+
 
 @Component({
   selector: 'app-create-camapign',
@@ -7,6 +9,8 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./create-camapign.component.css']
 })
 export class CreateCamapignComponent implements OnInit {
+
+  errorMessages: any = {};
 
   campaign = {
     title: '',
@@ -22,25 +26,40 @@ export class CreateCamapignComponent implements OnInit {
       subject: '',
       content: '',
       content_type: 'html',
-      from: { name: '', email: '' },
-      reply_to: { name: '', email: '' }
+      from: { name: '', email: 'teamuntitled.272@gmail.com' },
+      reply_to: { name: '', email: 'teamuntitled.272@gmail.com' }
     }
   };
 
-  constructor(private http: HttpClient) {}
+
+  constructor(private http: HttpClient, private router: Router) {}
+  navigate(){
+  this.router.navigate(['/table-list']);
+  window.location.href = '/table-list';
+  }
 
   onSubmit() {
     const apiUrl = 'https://40e2-2601-646-a100-cbf0-9cd8-4759-366f-faf1.ngrok-free.app/campaigns';
     this.http.post(apiUrl, this.campaign).subscribe(
       response => {
         console.log('Campaign created:', response);
+        this.router.navigate(['/table-list']);
         // Handle the response (e.g., redirecting to the campaign list or showing a success message)
       },
       error => {
         console.error('Error creating campaign:', error);
+        this.handleError(error);
         // Handle the error (e.g., showing an error message to the user)
       }
     );
+  }
+  handleError(error: any) {
+    // Assuming the error response is in JSON format and has a field 'errors'
+    if (error && error.errors) {
+      this.errorMessages = error.errors;
+    } else {
+      this.errorMessages.general = 'An error occurred while creating the campaign.';
+    }
   }
 
   ngOnInit(): void {

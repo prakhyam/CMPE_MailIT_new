@@ -14,18 +14,23 @@
                 <div class="form-group">
                   <label>Title</label>
                   <input type="text" class="form-control" [(ngModel)]="campaign.title"  name="title" required>
+                  <small class="error-message" *ngIf="errorMessages.title">{{ errorMessages.title }}</small>
                 </div>
               </div>
               <div class="col-md-3 px-1">
                 <div class="form-group">
                   <label>About</label>
                   <input type="text" class="form-control" [(ngModel)]="campaign.about" name="about" required>
+                  <small class="error-message" *ngIf="errorMessages.about">{{ errorMessages.about }}</small>
+
                 </div>
               </div>
               <div class="col-md-4 pl-1">
                 <div class="form-group">
                   <label>Start At</label>
                   <input type="datetime-local" class="form-control" [(ngModel)]="campaign.start_at" name="startAt" required>
+                  <small class="error-message" *ngIf="errorMessages.startAt">{{ errorMessages.startAt }}</small>
+
                 </div>
               </div>
             </div>
@@ -34,66 +39,72 @@
                 <div class="form-group">
                     <label>End At</label>
                     <input type="datetime-local" class="form-control" [(ngModel)]="campaign.end_at" name="endAt" required>
+                    <small class="error-message" *ngIf="errorMessages.endAt">{{ errorMessages.endAt }}</small>
+
                 </div>
               </div>
               <div class="col-md-6 pl-1">
                 <div class="form-group">
                     <label>Repeat Threshold</label>
                     <input type="number" class="form-control" [(ngModel)]="campaign.repeat_threshold" name="repeatThreshold" required>
-                </div>
+                    <small class="error-message" *ngIf="errorMessages.repeatThreshold">{{ errorMessages.repeatThreshold }}</small>
+
+                  </div>
+              </div>
+              <div class="col-md-6 pl-1">
+                <div class="form-group">
+                    <label>Repeat Period</label>
+                    <input type="string" class="form-control" [(ngModel)]="campaign.repeat_period" name="repeat_period" required>
+                    <small class="error-message" *ngIf="errorMessages.repeat_period">{{ errorMessages.repeat_period }}</small>
+                  </div>
               </div>
               <div class="col-md-7 pr-1">
                 <div class="form-group">
                     <label>SQL</label>
                     <textarea class="form-control" [(ngModel)]="campaign.sql" name="sql" required></textarea>
+                    <small class="error-message" *ngIf="errorMessages.sql">{{ errorMessages.sql }}</small>
+
                 </div>
               </div>
               <div class="col-md-8 pl-1">
                 <div class="form-group">
                     <label>Mail Subject</label>
                     <input type="text" class="form-control" [(ngModel)]="campaign.mail.subject" name="mailSubject" required>
+                    <small class="error-message" *ngIf="errorMessages.mailSubject">{{ errorMessages.mailSubject }}</small>
+
                 </div>
               </div>
               <div class="col-md-8 pr-1">
                 <div class="form-group">
                     <label>Mail Content</label>
                     <textarea class="form-control" [(ngModel)]="campaign.mail.content" name="mailContent" required></textarea>
+                    <small class="error-message" *ngIf="errorMessages.mailContent">{{ errorMessages.mailContent }}</small>
+
                 </div>
               </div>
             </div>
             <div class="row">
-                <div class="col-md-10 pr-1">
-                    <div class="form-group">
-                        <label>Mail Content Type</label>
-                        <input type="text" class="form-control" disabled value ="html"[(ngModel)]="campaign.mail.content_type" name="mailContentType" required>
-                    </div>
-                  </div>
+                
                   <div class="col-md-10 px-1">
                     <div class="form-group">
                         <label>Sender Name</label>
                         <input type="text" class="form-control" [(ngModel)]="campaign.mail.from.name" name="fromName" required>
+                        <small class="error-message" *ngIf="errorMessages.fromName">{{ errorMessages.fromName }}</small>
+
                     </div>
                   </div>
-                  <div class="col-md-10 pl-1">
-                    <div class="form-group">
-                        <label>Sender Email</label>
-                        <input type="email" class="form-control" [(ngModel)]="campaign.mail.from.email" name="fromEmail" required>
-                    </div>
-                  </div>
+                 
                   <div class="col-md-11 pr-1">
                     <div class="form-group">
                         <label>Reply-To Name</label>
                         <input type="text" class="form-control" [(ngModel)]="campaign.mail.reply_to.name" name="replyToName" required>
+                        <small class="error-message" *ngIf="errorMessages.replyToName">{{ errorMessages.replyToName }}</small>
+
                     </div>
                   </div>
             </div>
             <div class="row">
-              <div class="col-md-4 pr-1">
-                <div class="form-group">
-                    <label>Reply-To Email</label>
-                    <input type="email" class="form-control" [(ngModel)]="campaign.mail.reply_to.email" name="replyToEmail" required>
-                </div>
-              </div>
+              
               <!--<div class="col-md-4 px-1">
                 <div class="form-group">
                   <label>Country</label>
@@ -107,7 +118,7 @@
                 </div>
               </div>-->
             </div>
-            <button type="submit" class="btn btn-primary">Create Campaign</button>
+            <button type="submit" (click)="navigate()" class="btn btn-primary">Create Campaign</button>
 
           </form>
         </div>

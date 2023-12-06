@@ -10,6 +10,7 @@ import { NotificationsComponent } from '../../notifications/notifications.compon
 import { UpgradeComponent } from '../../upgrade/upgrade.component';
 import { CreateCamapignComponent } from '../../create-camapign/create-camapign.component';
 import { UsersComponent } from '../../users/users.component';
+;
 
 export const AdminLayoutRoutes: Routes = [
    
@@ -22,6 +23,7 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'notifications',  component: NotificationsComponent },
     { path: 'upgrade',        component: UpgradeComponent },
     { path: 'create-campaign', component: CreateCamapignComponent},
-    { path: 'users',           component: UsersComponent}
+    { path: 'users',           component: UsersComponent},
+
    
 ];

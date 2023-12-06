@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient , HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr'; 
+
 
 @Component({
   selector: 'app-table-list',
@@ -33,8 +34,21 @@ export class TableListComponent implements OnInit {
 
 
   fetchCampaigns(page: number, pageSize: number) {
-    const fetchapiUrl='https://40e2-2601-646-a100-cbf0-9cd8-4759-366f-faf1.ngrok-free.app/campaigns';
-   this.http.get<any>(fetchapiUrl).subscribe(
+  const fetchapiUrl='https://40e2-2601-646-a100-cbf0-9cd8-4759-366f-faf1.ngrok-free.app/campaigns';
+
+  const email = localStorage.getItem('email');
+  const role = localStorage.getItem('role');
+
+  let headers = new HttpHeaders();
+  if (email) {
+    headers = headers.set('X-User-Email', email);
+  }
+  
+  if (role) {
+    headers = headers.set('X-User-Role', role);
+  }
+
+   this.http.get<any>(fetchapiUrl, { headers: headers }).subscribe(
       (response) => {
         this.campaigns = response; // Adjust according to your API response structure
         this.totalCampaigns = this.campaigns.length; // Total number of campaigns, for pagination calculation
@@ -49,9 +63,22 @@ export class TableListComponent implements OnInit {
     this.fetchCampaigns(this.currentPage, this.pageSize);
   }
   publishCampaign(campaign: any) {
+    const email = localStorage.getItem('email');
+    const role = localStorage.getItem('role');
+
+    let headers = new HttpHeaders();
+    if (email) {
+        headers = headers.set('X-User-Email', email);
+    } 
+  
+    if (role) {
+      headers = headers.set('X-User-Role', role);
+    }
+
+
     if (campaign.isActive) {
       const apiUrl = `https://40e2-2601-646-a100-cbf0-9cd8-4759-366f-faf1.ngrok-free.app/schedulers/schedule-campaign/${campaign.id}`;
-      this.http.post(apiUrl,null).subscribe(
+      this.http.post(apiUrl,null, { headers: headers }).subscribe(
         (response) => {
           console.log('Campaign published:', response);
           // Handle successful publishing here (e.g., show a success message)
@@ -64,7 +91,7 @@ export class TableListComponent implements OnInit {
     }
     else{
       const apiUrl = `https://40e2-2601-646-a100-cbf0-9cd8-4759-366f-faf1.ngrok-free.app/schedulers/unschedule-campaign/${campaign.id}`;
-      this.http.post(apiUrl,null).subscribe(
+      this.http.post(apiUrl,null, { headers: headers }).subscribe(
         (response) => {
           console.log('Campaign published:', response);
           // Handle successful publishing here (e.g., show a success message)
@@ -77,8 +104,21 @@ export class TableListComponent implements OnInit {
     }
   }
   archiveCampaign(campaign: any) {
+    const email = localStorage.getItem('email');
+    const role = localStorage.getItem('role');
+
+    let headers = new HttpHeaders();
+    if (email) {
+        headers = headers.set('X-User-Email', email);
+    } 
+  
+    if (role) {
+      headers = headers.set('X-User-Role', role);
+    }
+
+
     const archiveApiUrl = `https://40e2-2601-646-a100-cbf0-9cd8-4759-366f-faf1.ngrok-free.app/campaigns/archive/${campaign.id}`;
-    this.http.post(archiveApiUrl, null).subscribe(
+    this.http.post(archiveApiUrl, null, { headers: headers }).subscribe(
       (response) => {
         console.log('Campaign archived:', response);
         // Handle successful archiving here (e.g., show a success message or refresh the list)
@@ -93,8 +133,20 @@ export class TableListComponent implements OnInit {
   }
 
   approveCampaign(campaign: any) {
+    const email = localStorage.getItem('email');
+    const role = localStorage.getItem('role');
+
+    let headers = new HttpHeaders();
+    if (email) {
+        headers = headers.set('X-User-Email', email);
+    } 
+  
+    if (role) {
+      headers = headers.set('X-User-Role', role);
+    }
+
     const approveApiUrl = `https://40e2-2601-646-a100-cbf0-9cd8-4759-366f-faf1.ngrok-free.app/campaigns/approve/${campaign.id}`;
-    this.http.post(approveApiUrl, null).subscribe(
+    this.http.post(approveApiUrl, null, { headers: headers }).subscribe(
       (response) => {
         console.log('Campaign approved:', response);
         // Handle successful approval here (e.g., show a success message or update the status)
@@ -107,8 +159,20 @@ export class TableListComponent implements OnInit {
   }
 
   executeCampaignNow(campaign: any) {
+    const email = localStorage.getItem('email');
+    const role = localStorage.getItem('role');
+
+    let headers = new HttpHeaders();
+    if (email) {
+        headers = headers.set('X-User-Email', email);
+    } 
+  
+    if (role) {
+      headers = headers.set('X-User-Role', role);
+    }
+
     const executeCampaignNowUrl = `https://40e2-2601-646-a100-cbf0-9cd8-4759-366f-faf1.ngrok-free.app/schedulers/execute-campaign-now/${campaign.id}`;
-    this.http.post(executeCampaignNowUrl, null).subscribe(
+    this.http.post(executeCampaignNowUrl, null, { headers: headers }).subscribe(
       (response) => {
         console.log('Campaign Executing Now:', response);
         this.fetchCampaigns(this.currentPage, this.pageSize);

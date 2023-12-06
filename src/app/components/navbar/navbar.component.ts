@@ -22,6 +22,20 @@ export class NavbarComponent implements OnInit {
       this.location = location;
           this.sidebarVisible = false;
     }
+  //   logout() {
+  //     localStorage.removeItem('email');
+  //     localStorage.removeItem('role');
+      
+  //     this.router.navigate(['/login']); 
+  // }
+  logout(){
+    localStorage.clear();
+    localStorage.removeItem('firstName');
+    localStorage.removeItem('lastName');
+    window.location.reload();
+    //window.location.href = '/login';
+  }
+  
 
     ngOnInit(){
       this.listTitles = ROUTES.filter(listTitle => listTitle);

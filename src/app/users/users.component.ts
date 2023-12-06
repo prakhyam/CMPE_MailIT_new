@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 interface User {
   id: number;
@@ -24,8 +24,21 @@ export class UsersComponent implements OnInit {
   }
 
   fetchUsers() {
+
+    const email = localStorage.getItem('email');
+    const role = localStorage.getItem('role');
+
+    let headers = new HttpHeaders();
+    if (email) {
+      headers = headers.set('X-User-Email', email);
+    }
+  
+    if (role) {
+      headers = headers.set('X-User-Role', role);
+    }
+
     const apiUrl = 'https://40e2-2601-646-a100-cbf0-9cd8-4759-366f-faf1.ngrok-free.app/users'; // Replace with your API endpoint
-    this.http.get<User[]>(apiUrl).subscribe(
+    this.http.get<User[]>(apiUrl, { headers: headers }).subscribe(
       data => {
         this.users = data;
       },

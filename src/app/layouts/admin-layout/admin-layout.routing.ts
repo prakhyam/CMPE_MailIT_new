@@ -10,11 +10,12 @@ import { NotificationsComponent } from '../../notifications/notifications.compon
 import { UpgradeComponent } from '../../upgrade/upgrade.component';
 import { CreateCamapignComponent } from '../../create-camapign/create-camapign.component';
 import { UsersComponent } from '../../users/users.component';
+import { AnalyticsComponent } from '../../analytics/analytics.component';
 ;
 
 export const AdminLayoutRoutes: Routes = [
    
-    { path: 'dashboard/:id',      component: DashboardComponent },
+    { path: 'analytics/:id',      component: AnalyticsComponent },
     { path: 'user-profile',   component: UserProfileComponent },
     { path: 'table-list',     component: TableListComponent },
     { path: 'typography',     component: TypographyComponent },

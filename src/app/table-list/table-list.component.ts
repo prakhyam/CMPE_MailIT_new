@@ -22,15 +22,14 @@ export class TableListComponent implements OnInit {
     this.fetchCampaigns(this.currentPage, this.pageSize );
   }
 
+  goToCampaignAnalytics(campaignId: string) {
+    this.router.navigate(['/analytics', campaignId]); // Adjust the route as needed
+  }
+
   navigateToCreateCampaign() {
     this.router.navigate(['/create-campaign']); // Adjust the route as per your app's routing configuration
   }
 
-  goToCampaignAnalytics(campaignId: number) {
-    // Navigate to the campaign's analytics dashboard
-    // Adjust the path according to your routing configuration
-    this.router.navigate(['/campaign-analytics', campaignId]);
-  }
 
 
   fetchCampaigns(page: number, pageSize: number) {

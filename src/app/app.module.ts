@@ -7,10 +7,6 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrModule } from 'ngx-toastr';
 import { HttpClient } from '@angular/common/http';
 import { AuthInterceptor } from './auth.interceptor';
-
-
-
-
 import { AppRoutingModule } from './app.routing';
 import { ComponentsModule } from './components/components.module';
 
@@ -20,6 +16,7 @@ import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.compon
 import { LoginComponent } from './login/login.component';
 import { SingupComponent } from './singup/singup.component';
 import { LandingComponent } from './landing/landing.component';
+import { importExpr } from '@angular/compiler/src/output/output_ast';
 
 @NgModule({
   imports: [
@@ -39,6 +36,7 @@ import { LandingComponent } from './landing/landing.component';
     LoginComponent,
     SingupComponent,
     LandingComponent,
+    
 
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }

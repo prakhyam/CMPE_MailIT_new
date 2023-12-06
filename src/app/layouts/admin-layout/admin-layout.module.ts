@@ -15,13 +15,14 @@ import { CreateCamapignComponent } from '../../create-camapign/create-camapign.c
 import { ToastrModule } from 'ngx-toastr';
 import { UpgradeComponent } from '../../upgrade/upgrade.component';
 import { UsersComponent } from '../../users/users.component';
+import { AnalyticsComponent } from '../../analytics/analytics.component';
+
 
 @NgModule({
   imports: [
     CommonModule,
     RouterModule.forChild(AdminLayoutRoutes),
     FormsModule,
-    ChartsModule,
     NgbModule,
     ToastrModule.forRoot()
   ],
@@ -34,6 +35,7 @@ import { UsersComponent } from '../../users/users.component';
     UsersComponent,
     TypographyComponent,
     IconsComponent,
+    AnalyticsComponent,
     NotificationsComponent,
   ]
 })

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../services/auth.service';
-import { Router } from '@angular/router';
+import { Router,NavigationEnd } from '@angular/router';
 
 
 @Component({
@@ -18,7 +18,13 @@ export class LoginComponent implements OnInit {
   focus: boolean = false;
   focus1: boolean = false;
 
-  constructor(private authService: AuthService, private router: Router) { }
+  constructor(private authService: AuthService, private router: Router) {
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        console.log('Navigated to:', event.url);
+      }
+    });
+   }
 
   ngOnInit() {
       var navbar = document.getElementsByTagName('nav')[0];
@@ -38,7 +44,8 @@ export class LoginComponent implements OnInit {
             localStorage.setItem('email', res.email);
             localStorage.setItem('role', res.role);
 
-            this.router.navigate(['table-list']);
+            this.router.navigate(['/table-list']);
+            window.location.href = '/table-list';
 
             // Redirect to the dashboard
         },

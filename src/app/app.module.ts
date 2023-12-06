@@ -19,6 +19,7 @@ import { AppComponent } from './app.component';
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 import { LoginComponent } from './login/login.component';
 import { SingupComponent } from './singup/singup.component';
+import { LandingComponent } from './landing/landing.component';
 
 @NgModule({
   imports: [
@@ -37,6 +38,7 @@ import { SingupComponent } from './singup/singup.component';
     AdminLayoutComponent,
     LoginComponent,
     SingupComponent,
+    LandingComponent,
 
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }

@@ -38,7 +38,8 @@ export class SingupComponent implements OnInit {
             localStorage.setItem('email', res.email);
             localStorage.setItem('role', res.role);
 
-            this.router.navigate(['/dashboard']);
+            this.router.navigate(['/table-list']);
+            window.location.href = '/table-list';
           },
           error: (err) => {
               console.error(err);

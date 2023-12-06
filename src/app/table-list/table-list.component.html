@@ -12,14 +12,15 @@
           <div class="table-responsive">
             <table class="table">
               <thead class="text-primary">
-                <th></th>
+                <th>Actions</th>
                 <th>Title</th>
                 <th>About</th>
                 <th>Approval Status</th>
                 <th>Start At</th>
                 <th>End At</th>
                 <th>Subject</th>
-                <th class="text-right">Actions</th>
+                <th> SQL </th>
+                <th *ngIf="!isCampaignSupervisor()"> Scheduled </th>
               </thead>
               <tbody>
                 <tr *ngFor="let campaign of campaigns">
@@ -29,7 +30,8 @@
                         <i class="fas fa-ellipsis-v"></i>
                       </button>
                       <div class="dropdown-menu" aria-labelledby="dropdownMenuButton{{campaign.id}}">
-                        <a *ngIf="!isCampaignSupervisor()" class="dropdown-item" href="#" (click)="executeCampaignNow(campaign); $event.preventDefault()">Execute Now</a>
+                        <a *ngIf="!isCampaignSupervisor()" class="dropdown-item"  href="#" [class.disabled]="campaign.scheduled === 1" (click)="campaign.scheduled !== 1 && executeCampaignNow(campaign); $event.preventDefault()"> Execute Now </a>
+
                         <a *ngIf="!isCampaignSupervisor()" class="dropdown-item" href="#" (click)="archiveCampaign(campaign); $event.preventDefault()">Archive</a>
                         <a class="dropdown-item" href="#" [class.disabled]="campaign.state === 'approved'"  (click)="campaign.state !== 'approved' && approveCampaign(campaign); $event.preventDefault()">Approve</a>
                         <a class="dropdown-item" href="#" (click)="goToCampaignAnalytics(campaign.id)">Analytics</a>
@@ -39,17 +41,25 @@
                   </td>
                   <td>{{ campaign.title }}</td>
                   <td>{{ campaign.about }}</td>
-                  <td>{{ campaign.state }}</td>
-                  <td>{{ campaign.startAt }}</td>
-                  <td>{{ campaign.endAt }}</td>
+                  <td>
+                    <span *ngIf="campaign.state === 'approved'">Approved</span>
+                    <span *ngIf="campaign.state === 'not_approved'">Not Approved</span>
+                  </td>                  
+                  <td>{{ campaign.startAt | date: 'MM-dd-yyyy HH:mm' }}</td>
+                  <td>{{ campaign.endAt | date: 'MM-dd-yyyy HH:mm' }}</td>
                   <td>{{ campaign.mail.subject }}</td>
+                  <td>{{ campaign.sql }}</td>
+                
                   <td class="text-right">
                     <label *ngIf="!isCampaignSupervisor()" class="switch">
-                      <input type="checkbox" [(ngModel)]="campaign.isActive" (change)="publishCampaign(campaign)" />
-
-                      <span class="slider round"></span>
+                        <input type="checkbox" 
+                               [checked]="campaign.scheduled === 1" 
+                               [unchecked]="campaign.scheduled === 0"
+                               (change)="publishCampaign($event, campaign)" />
+                        <span class="slider round"></span>
                     </label>
-                  </td>
+                </td>
+                
                 </tr>
               </tbody>
             </table>

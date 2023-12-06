@@ -8,8 +8,6 @@ declare interface RouteInfo {
 }
 export const ROUTES: RouteInfo[] = [
   { path: '/table-list', title: 'Campaigns',  icon: 'ui-1_email-85', class: '' },
-    
-    { path: '/create-campaign', title: 'Create Campaign', icon: 'files_paper', class:''}, 
     { path: '/users', title: 'Users',  icon:'users_single-02', class: '' },
    /* { path: '/user-profile', title: 'User Profile',  icon:'users_single-02', class: '' },
    { path: '/icons', title: 'Icons',  icon:'education_atom', class: '' },

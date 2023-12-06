@@ -35,24 +35,28 @@ export class CreateCamapignComponent implements OnInit {
   constructor(private http: HttpClient, private router: Router) {}
   navigate(){
   this.router.navigate(['/table-list']);
-  window.location.href = '/table-list';
+  // window.location.href = '/table-list';
   }
 
   onSubmit() {
     const apiUrl = 'https://40e2-2601-646-a100-cbf0-9cd8-4759-366f-faf1.ngrok-free.app/campaigns';
+  
     this.http.post(apiUrl, this.campaign).subscribe(
       response => {
         console.log('Campaign created:', response);
+  
+        // Redirecting to the campaign list after successful response
         this.router.navigate(['/table-list']);
-        // Handle the response (e.g., redirecting to the campaign list or showing a success message)
       },
       error => {
         console.error('Error creating campaign:', error);
+  
+        // Handling error, like showing an error message
         this.handleError(error);
-        // Handle the error (e.g., showing an error message to the user)
       }
     );
   }
+  
   handleError(error: any) {
     // Assuming the error response is in JSON format and has a field 'errors'
     if (error && error.errors) {

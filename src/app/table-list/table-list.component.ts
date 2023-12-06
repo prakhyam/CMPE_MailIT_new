@@ -16,6 +16,8 @@ export class TableListComponent implements OnInit {
   totalCampaigns: number = 0;
   Math: any = Math;
 
+  hover = false;
+
   constructor(private http: HttpClient, private router: Router,private toastr: ToastrService) {}
 
   ngOnInit() {
@@ -52,6 +54,8 @@ export class TableListComponent implements OnInit {
       (response) => {
         this.campaigns = response; // Adjust according to your API response structure
         this.totalCampaigns = this.campaigns.length; // Total number of campaigns, for pagination calculation
+        this.campaigns = this.campaigns.sort((a, b) => a.id - b.id);
+
       },
       (error) => {
         console.error('Error fetching data:', error);
@@ -62,7 +66,10 @@ export class TableListComponent implements OnInit {
     this.currentPage = newPage;
     this.fetchCampaigns(this.currentPage, this.pageSize);
   }
-  publishCampaign(campaign: any) {
+  publishCampaign(event: Event, campaign: any) {
+    const checkbox = event.target as HTMLInputElement;
+
+
     const email = localStorage.getItem('email');
     const role = localStorage.getItem('role');
 
@@ -76,7 +83,7 @@ export class TableListComponent implements OnInit {
     }
 
 
-    if (campaign.isActive) {
+    if (checkbox.checked) {
       const apiUrl = `https://40e2-2601-646-a100-cbf0-9cd8-4759-366f-faf1.ngrok-free.app/schedulers/schedule-campaign/${campaign.id}`;
       this.http.post(apiUrl,null, { headers: headers }).subscribe(
         (response) => {

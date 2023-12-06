@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr'; 
 
 @Component({
   selector: 'app-table-list',
@@ -14,7 +15,7 @@ export class TableListComponent implements OnInit {
   totalCampaigns: number = 0;
   Math: any = Math;
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(private http: HttpClient, private router: Router,private toastr: ToastrService) {}
 
   ngOnInit() {
     this.fetchCampaigns(this.currentPage, this.pageSize );
@@ -47,11 +48,23 @@ export class TableListComponent implements OnInit {
     this.currentPage = newPage;
     this.fetchCampaigns(this.currentPage, this.pageSize);
   }
-
   publishCampaign(campaign: any) {
     if (campaign.isActive) {
-      const apiUrl = 'https://40e2-2601-646-a100-cbf0-9cd8-4759-366f-faf1.ngrok-free.app/schedulers/schedule-campaign/';
-      this.http.post(apiUrl, { campaignId: campaign.id }).subscribe(
+      const apiUrl = `https://40e2-2601-646-a100-cbf0-9cd8-4759-366f-faf1.ngrok-free.app/schedulers/schedule-campaign/${campaign.id}`;
+      this.http.post(apiUrl,null).subscribe(
+        (response) => {
+          console.log('Campaign published:', response);
+          // Handle successful publishing here (e.g., show a success message)
+        },
+        (error) => {
+          console.error('Error publishing campaign:', error);
+          // Handle errors here (e.g., show an error message)
+        }
+      );
+    }
+    else{
+      const apiUrl = `https://40e2-2601-646-a100-cbf0-9cd8-4759-366f-faf1.ngrok-free.app/schedulers/unschedule-campaign/${campaign.id}`;
+      this.http.post(apiUrl,null).subscribe(
         (response) => {
           console.log('Campaign published:', response);
           // Handle successful publishing here (e.g., show a success message)
@@ -69,6 +82,8 @@ export class TableListComponent implements OnInit {
       (response) => {
         console.log('Campaign archived:', response);
         // Handle successful archiving here (e.g., show a success message or refresh the list)
+        this.fetchCampaigns(this.currentPage, this.pageSize);
+         this.toastr.success('Campaign successfully archived', 'Success'); 
       },
       (error) => {
         console.error('Error archiving campaign:', error);
@@ -90,6 +105,19 @@ export class TableListComponent implements OnInit {
       }
     );
   }
-  
 
+  executeCampaignNow(campaign: any) {
+    const executeCampaignNowUrl = `https://40e2-2601-646-a100-cbf0-9cd8-4759-366f-faf1.ngrok-free.app/schedulers/execute-campaign-now/${campaign.id}`;
+    this.http.post(executeCampaignNowUrl, null).subscribe(
+      (response) => {
+        console.log('Campaign Executing Now:', response);
+        this.fetchCampaigns(this.currentPage, this.pageSize);
+        // Handle successful archiving here (e.g., show a success message or refresh the list)
+      },
+      (error) => {
+        console.error('Error Executing Campaign:', error);
+        // Handle errors here (e.g., show an error message)
+      }
+    );
+  }
 }

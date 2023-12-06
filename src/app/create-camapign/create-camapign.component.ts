@@ -14,10 +14,11 @@ export class CreateCamapignComponent implements OnInit {
     start_at: '',
     end_at: '',
     repeat_period: 'P1Y6M4DT1230M5S',
-    sendgrid_domain: ['gmail.com'],
+    sendgrid_domain: 'gmail.com',
     repeat_threshold: 0,
     sql: '',
     mail: {
+      mail_type: 'static',
       subject: '',
       content: '',
       content_type: 'html',

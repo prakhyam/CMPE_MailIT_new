@@ -24,7 +24,7 @@ export class UsersComponent implements OnInit {
   }
 
   fetchUsers() {
-    const apiUrl = 'YOUR_API_ENDPOINT_FOR_USERS'; // Replace with your API endpoint
+    const apiUrl = 'https://40e2-2601-646-a100-cbf0-9cd8-4759-366f-faf1.ngrok-free.app/users'; // Replace with your API endpoint
     this.http.get<User[]>(apiUrl).subscribe(
       data => {
         this.users = data;
@@ -33,6 +33,18 @@ export class UsersComponent implements OnInit {
         console.error('Error fetching users:', error);
       }
     );
+  }
+  mapUserRole(role: string): string {
+    switch (role) {
+      case 'campaign_supervisor':
+        return 'Campaign Supervisor';
+      case 'campaign_manager':
+        return 'Campaign Manager';
+      case 'super_user':
+        return 'Super User';
+      default:
+        return 'Unknown Role';
+    }
   }
 
   deleteUser(userId: number) {

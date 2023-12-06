@@ -29,8 +29,9 @@
                         <i class="fas fa-ellipsis-v"></i>
                       </button>
                       <div class="dropdown-menu" aria-labelledby="dropdownMenuButton{{campaign.id}}">
-                        <<a class="dropdown-item" href="#" (click)="archiveCampaign(campaign); $event.preventDefault()">Archive</a>
-                        <a class="dropdown-item" href="#" (click)="approveCampaign(campaign)">Approve</a>
+                        <a class="dropdown-item" href="#" (click)="executeCampaignNow(campaign); $event.preventDefault()">Execute Now</a>
+                        <a class="dropdown-item" href="#" (click)="archiveCampaign(campaign); $event.preventDefault()">Archive</a>
+                        <a class="dropdown-item" href="#" [class.disabled]="campaign.state === 'approved'"  (click)="campaign.state !== 'approved' && approveCampaign(campaign); $event.preventDefault()">Approve</a>
                         <a class="dropdown-item" href="#" (click)="goToCampaignAnalytics(campaign.id)">Analytics</a>
 
                       </div>
@@ -40,7 +41,7 @@
                   <td>{{ campaign.about }}</td>
                   <td>{{ campaign.state }}</td>
                   <td>{{ campaign.startAt }}</td>
-                    <td>{{ campaign.endAt }}</td>
+                  <td>{{ campaign.endAt }}</td>
                   <td>{{ campaign.mail.subject }}</td>
                   <td class="text-right">
                     <label class="switch">
